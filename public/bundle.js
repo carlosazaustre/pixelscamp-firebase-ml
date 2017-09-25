@@ -7882,6 +7882,31 @@ module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":1}],4:[function(require,module,exports){
+var inserted = exports.cache = {}
+
+function noop () {}
+
+exports.insert = function (css) {
+  if (inserted[css]) return noop
+  inserted[css] = true
+
+  var elem = document.createElement('style')
+  elem.setAttribute('type', 'text/css')
+
+  if ('textContent' in elem) {
+    elem.textContent = css
+  } else {
+    elem.styleSheet.cssText = css
+  }
+
+  document.getElementsByTagName('head')[0].appendChild(elem)
+  return function () {
+    document.getElementsByTagName('head')[0].removeChild(elem)
+    inserted[css] = false
+  }
+}
+
+},{}],5:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -7910,11 +7935,85 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-272e3b98", __vue__options__)
   }
 })()}
-},{"vue":3,"vue-hot-reload-api":2}],5:[function(require,module,exports){
+},{"vue":3,"vue-hot-reload-api":2}],6:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("header[data-v-82a2f8dc] {\n  background-color: red;\n  color: yellow;\n  font-size: 1.25em;\n  height: 3em;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  border-bottom: 2px solid white;\n  padding-top: 1em;\n  margin: 0;\n  text-shadow: 0px 0px 3px #222;\n}\n.green[data-v-82a2f8dc] {\n  background-color: green;\n  color: yellow;\n}\n.icon[data-v-82a2f8dc] {\n  background-color: red;\n  border-radius: 50%;\n  position: relative;\n  top: 0em;\n  text-align: center;\n  width: 2em;\n  height: 2em;\n  padding: 1rem;\n  font-size: 1.5em;\n}\n.iconGreen[data-v-82a2f8dc] {\n  background-color: green;\n}")
+;(function(){
 'use strict';
 
-//const Vue = require('vue')
-//const App = require('./app.vue')
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: 'app-header',
+  props: {
+    isHotdog: Boolean
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('header',{class:{ green: _vm.isHotdog }},[(_vm.isHotdog)?_c('span',[_vm._v("Hotdog!")]):_c('span',[_vm._v("Not Hotdog!")]),_vm._v(" "),_c('span',{staticClass:"icon",class:{ iconGreen: _vm.isHotdog }},[_vm._v("🌭")])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-82a2f8dc"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-82a2f8dc", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-82a2f8dc", __vue__options__)
+  }
+})()}
+},{"vue":3,"vue-hot-reload-api":2,"vueify/lib/insert-css":4}],7:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".cameraBtn[data-v-7b5c67e6] {\n  background-color: #1149cb;\n  border-radius: 50%;\n  width: 60px;\n  height: 60px;\n  display: flex;\n  text-align: center;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n  bottom: 1em;\n  right: calc(50% - 30px);\n}\n.imageContainer[data-v-7b5c67e6] {\n  width: 100vw;\n  height: 100vh;\n  margin: 0;\n  padding: 0;\n}\nimg[data-v-7b5c67e6] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\ninput[type=\"file\"][data-v-7b5c67e6] {\n  display: none;\n}")
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: 'app-image',
+  data: function data() {
+    return {
+      imageUrl: null
+    };
+  },
+  created: function created() {
+    this.initialize();
+  },
+
+
+  methods: {
+    initialize: function initialize() {},
+    uploadImage: function uploadImage(event) {
+      var file = event.target.files[0];
+    }
+  }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('label',{staticClass:"cameraBtn",attrs:{"for":"image"}},[_vm._v("📷")]),_vm._v(" "),_c('input',{attrs:{"type":"file","id":"image"},on:{"change":_vm.uploadImage}}),_vm._v(" "),_c('figure',{staticClass:"imageContainer"},[_c('img',{attrs:{"src":_vm.imageUrl}})])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-7b5c67e6"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7b5c67e6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-7b5c67e6", __vue__options__)
+  }
+})()}
+},{"vue":3,"vue-hot-reload-api":2,"vueify/lib/insert-css":4}],8:[function(require,module,exports){
+'use strict';
 
 var _vue = require('vue');
 
@@ -7924,7 +8023,18 @@ var _App = require('./App.vue');
 
 var _App2 = _interopRequireDefault(_App);
 
+var _AppHeader = require('./components/AppHeader.vue');
+
+var _AppHeader2 = _interopRequireDefault(_AppHeader);
+
+var _AppImage = require('./components/AppImage.vue');
+
+var _AppImage2 = _interopRequireDefault(_AppImage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.component('app-header', _AppHeader2.default);
+_vue2.default.component('app-image', _AppImage2.default);
 
 /* eslint-disable no-new */
 new _vue2.default({
@@ -7934,4 +8044,4 @@ new _vue2.default({
   }
 });
 
-},{"./App.vue":4,"vue":3}]},{},[5]);
+},{"./App.vue":5,"./components/AppHeader.vue":6,"./components/AppImage.vue":7,"vue":3}]},{},[8]);
