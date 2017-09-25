@@ -1,0 +1,41 @@
+{
+  "name": "pixelscamp-firebase-ml",
+  "version": "1.0.0",
+  "description": "Cloud Functions and Machine Learning APIs - PixelsCamp Talk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/carlosazaustre/pixelscamp-firebase-ml.git"
+  },
+  "keywords": [
+    "firebase",
+    "cloud",
+    "functions",
+    "machine",
+    "learning",
+    "vision",
+    "api",
+    "vue"
+  ],
+  "author": "Carlos Azaustre <cazaustre@gmail.com> (https://carlosazaustre.es/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carlosazaustre/pixelscamp-firebase-ml/issues"
+  },
+  "homepage": "https://github.com/carlosazaustre/pixelscamp-firebase-ml#readme",
+  "dependencies": {
+    "firebase": "^4.4.0",
+    "vue": "^2.4.4"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "browserify": "^14.4.0",
+    "standard": "^10.0.3",
+    "uglify-js": "^3.1.2",
+    "uglifyjs": "^2.4.11",
+    "vueify": "^9.4.1"
+  }
+}
