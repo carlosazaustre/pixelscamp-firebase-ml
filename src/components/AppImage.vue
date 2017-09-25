@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
   name: 'app-image',
   data () {
@@ -23,10 +25,21 @@ export default {
 
   methods: {
     initialize () {
-
+      firebase.database()
+        .ref('/uploads')
+        .on('value', snapshot => {
+          let isHotdog = snapshot.val().photo.isHotdog
+          this.$emit('upload', { isHotdog })
+        })
     },
     uploadImage (event) {
       const file = event.target.files[0]
+      return firebase.storage()
+        .ref(`/uploads/${file.name}`)
+        .put(file)
+        .then(snapshot => {
+          this.imageUrl = snapshot.metadata.downloadURLs[0]
+        })
     }
   }
 }
