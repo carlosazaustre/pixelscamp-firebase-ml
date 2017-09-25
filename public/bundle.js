@@ -7907,6 +7907,7 @@ exports.insert = function (css) {
 }
 
 },{}],5:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#app {\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  text-align: center;\n  color: #2c3e50;\n  margin: 0;\n  padding: 0;\n}")
 ;(function(){
 'use strict';
 
@@ -7915,28 +7916,38 @@ module.exports = {
 
   data: function data() {
     return {
-      msg: 'Vue!'
+      isHotdog: false
     };
+  },
+
+
+  methods: {
+    changeHeader: function changeHeader(_ref) {
+      var isHotdog = _ref.isHotdog;
+
+      this.isHotdog = isHotdog;
+    }
   }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h1',[_vm._v("Hello "+_vm._s(_vm.msg))])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('app-header',{attrs:{"isHotdog":_vm.isHotdog}}),_vm._v(" "),_c('app-image',{on:{"upload":_vm.changeHeader}})],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-272e3b98", __vue__options__)
   } else {
     hotAPI.reload("data-v-272e3b98", __vue__options__)
   }
 })()}
-},{"vue":3,"vue-hot-reload-api":2}],6:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("header[data-v-82a2f8dc] {\n  background-color: red;\n  color: yellow;\n  font-size: 1.25em;\n  height: 3em;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  border-bottom: 2px solid white;\n  padding-top: 1em;\n  margin: 0;\n  text-shadow: 0px 0px 3px #222;\n}\n.green[data-v-82a2f8dc] {\n  background-color: green;\n  color: yellow;\n}\n.icon[data-v-82a2f8dc] {\n  background-color: red;\n  border-radius: 50%;\n  position: relative;\n  top: 0em;\n  text-align: center;\n  width: 2em;\n  height: 2em;\n  padding: 1rem;\n  font-size: 1.5em;\n}\n.iconGreen[data-v-82a2f8dc] {\n  background-color: green;\n}")
+},{"vue":3,"vue-hot-reload-api":2,"vueify/lib/insert-css":4}],6:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("header[data-v-82a2f8dc] {\n  background-color: red;\n  color: yellow;\n  font-size: 1.25em;\n  font-weight: 'bold';\n  height: 3em;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  border-bottom: 2px solid white;\n  padding-top: 1em;\n  margin: 0;\n  text-shadow: 0px 0px 3px #222;\n}\n.green[data-v-82a2f8dc] {\n  background-color: green;\n  color: yellow;\n}\n.icon[data-v-82a2f8dc] {\n  background-color: red;\n  border-radius: 50%;\n  position: relative;\n  top: 0em;\n  text-align: center;\n  width: 2em;\n  height: 2em;\n  padding: 1rem;\n  font-size: 1.5em;\n}\n.iconGreen[data-v-82a2f8dc] {\n  background-color: green;\n}")
 ;(function(){
 'use strict';
 

@@ -20,6 +20,7 @@ export default {
     background-color: red;
     color: yellow;
     font-size: 1.25em;
+    font-weight: 'bold';
     height: 3em;
     display: flex;
     flex-direction: column;
