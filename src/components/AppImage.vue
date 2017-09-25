@@ -23,6 +23,10 @@ export default {
     this.initialize()
   },
 
+  destroyed () {
+    this.detachListeners()
+  },
+
   methods: {
     initialize () {
       firebase.database()
@@ -32,6 +36,11 @@ export default {
           this.$emit('upload', { isHotdog })
         })
     },
+
+    detachListeners () {
+      firebase.database().ref('/uploads').off()
+    },
+
     uploadImage (event) {
       const file = event.target.files[0]
       return firebase.storage()
