@@ -2,7 +2,10 @@
   <div>
     <label class="cameraBtn" for="image">📷</label>
     <input type="file" id="image" v-on:change="uploadImage" />
-    <figure class="imageContainer">
+    <progress v-if="uploadValue < 100" v-bind:value="uploadValue" max="100">
+      {{ uploadValue }} %
+    </progress>
+    <figure v-if="uploadValue === 100" class="imageContainer">
       <img v-bind:src="imageUrl">
     </figure>
   </div>
@@ -15,7 +18,8 @@ export default {
   name: 'app-image',
   data () {
     return {
-      imageUrl: null
+      imageUrl: null,
+      uploadValue: 0
     }
   },
 
@@ -43,11 +47,18 @@ export default {
 
     uploadImage (event) {
       const file = event.target.files[0]
-      return firebase.storage()
-        .ref(`/uploads/${file.name}`)
-        .put(file)
-        .then(snapshot => {
-          this.imageUrl = snapshot.metadata.downloadURLs[0]
+      const task = firebase.storage().ref(`/uploads/${file.name}`).put(file)
+      
+      task.on('state_changed', snapshot => {
+          // Changes while the file is uploading
+          this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        }, error => {
+          // An error happens
+          return console.error(error.message)
+        }, () => {
+          // Upload completed
+          this.uploadValue = 100
+          this.imageUrl = task.snapshot.downloadURL
         })
     }
   }
@@ -73,6 +84,13 @@ export default {
     height: 100vh;
     margin: 0;
     padding: 0;
+  }
+  progress {
+    display: block;
+    position: absolute;
+    top: 50vh;
+    bottom: 50vh;
+    width: 100%;
   }
   img {
     width: 100%;

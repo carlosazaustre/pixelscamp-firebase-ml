@@ -33393,7 +33393,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":152,"vue-hot-reload-api":151,"vueify/lib/insert-css":153}],156:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".cameraBtn[data-v-7b5c67e6] {\n  background-color: #1149cb;\n  border-radius: 50%;\n  width: 60px;\n  height: 60px;\n  display: flex;\n  text-align: center;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n  bottom: 1em;\n  right: calc(50% - 30px);\n}\n.imageContainer[data-v-7b5c67e6] {\n  width: 100vw;\n  height: 100vh;\n  margin: 0;\n  padding: 0;\n}\nimg[data-v-7b5c67e6] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\ninput[type=\"file\"][data-v-7b5c67e6] {\n  display: none;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".cameraBtn[data-v-7b5c67e6] {\n  background-color: #1149cb;\n  border-radius: 50%;\n  width: 60px;\n  height: 60px;\n  display: flex;\n  text-align: center;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n  bottom: 1em;\n  right: calc(50% - 30px);\n}\n.imageContainer[data-v-7b5c67e6] {\n  width: 100vw;\n  height: 100vh;\n  margin: 0;\n  padding: 0;\n}\nprogress[data-v-7b5c67e6] {\n  display: block;\n  position: absolute;\n  top: 50vh;\n  bottom: 50vh;\n  width: 100%;\n}\nimg[data-v-7b5c67e6] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\ninput[type=\"file\"][data-v-7b5c67e6] {\n  display: none;\n}")
 ;(function(){
 'use strict';
 
@@ -33411,11 +33411,15 @@ exports.default = {
   name: 'app-image',
   data: function data() {
     return {
-      imageUrl: null
+      imageUrl: null,
+      uploadValue: 0
     };
   },
   created: function created() {
     this.initialize();
+  },
+  destroyed: function destroyed() {
+    this.detachListeners();
   },
 
 
@@ -33428,12 +33432,22 @@ exports.default = {
         _this.$emit('upload', { isHotdog: isHotdog });
       });
     },
+    detachListeners: function detachListeners() {
+      _firebase2.default.database().ref('/uploads').off();
+    },
     uploadImage: function uploadImage(event) {
       var _this2 = this;
 
       var file = event.target.files[0];
-      return _firebase2.default.storage().ref('/uploads/' + file.name).put(file).then(function (snapshot) {
-        _this2.imageUrl = snapshot.metadata.downloadURLs[0];
+      var task = _firebase2.default.storage().ref('/uploads/' + file.name).put(file);
+
+      task.on('state_changed', function (snapshot) {
+        _this2.uploadValue = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+      }, function (error) {
+        return console.error(error.message);
+      }, function () {
+        _this2.uploadValue = 100;
+        _this2.imageUrl = task.snapshot.downloadURL;
       });
     }
   }
@@ -33442,7 +33456,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('label',{staticClass:"cameraBtn",attrs:{"for":"image"}},[_vm._v("📷")]),_vm._v(" "),_c('input',{attrs:{"type":"file","id":"image"},on:{"change":_vm.uploadImage}}),_vm._v(" "),_c('figure',{staticClass:"imageContainer"},[_c('img',{attrs:{"src":_vm.imageUrl}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('label',{staticClass:"cameraBtn",attrs:{"for":"image"}},[_vm._v("📷")]),_vm._v(" "),_c('input',{attrs:{"type":"file","id":"image"},on:{"change":_vm.uploadImage}}),_vm._v(" "),(_vm.uploadValue < 100)?_c('progress',{attrs:{"max":"100"},domProps:{"value":_vm.uploadValue}},[_vm._v("\n    "+_vm._s(_vm.uploadValue)+" %\n  ")]):_vm._e(),_vm._v(" "),(_vm.uploadValue === 100)?_c('figure',{staticClass:"imageContainer"},[_c('img',{attrs:{"src":_vm.imageUrl}})]):_vm._e()])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-7b5c67e6"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
