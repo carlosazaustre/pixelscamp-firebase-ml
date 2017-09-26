@@ -17,6 +17,7 @@ module.exports = {
 
   methods: {
     changeHeader ({ isHotdog }) {
+      debugger
       this.isHotdog = isHotdog
     }
   }

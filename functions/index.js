@@ -23,16 +23,14 @@ exports.isHotdog = functions.storage.object()
     .then(response => {
       // Take all label annotations from response
       const labels = response[0].labelAnnotations
-      console.log(labels)
+
       // Check if a label is named 'Hot dog'
-      console.log('Checking labels...')
       let isHotdog = false
       labels.map(label => {
         if (label.description === 'hot dog') {
           isHotdog = true
         }
       })
-      console.log('Image is HotDog?', isHotdog)
 
       // Place the value in database to update the view
       return admin.database().ref('/upload/photo').update({ isHotdog })
