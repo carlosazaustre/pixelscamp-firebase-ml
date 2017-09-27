@@ -37,7 +37,6 @@ export default {
         .ref('/upload')
         .on('value', snapshot => {
           let isHotdog = snapshot.val().photo.isHotdog
-          debugger
           this.$emit('upload', { isHotdog })
         })
     },
