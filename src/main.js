@@ -11,11 +11,11 @@ Vue.component('app-header', AppHeader)
 Vue.component('app-image', AppImage)
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyC-Snn54noZIBxGr5Vre-k5TfmHweXAXvs',
-  authDomain: 'hotdog-7e6aa.firebaseapp.com',
-  databaseURL: 'https://hotdog-7e6aa.firebaseio.com',
-  projectId: 'hotdog-7e6aa',
-  storageBucket: 'hotdog-7e6aa.appspot.com'
+  apiKey: 'AIzaSyDFcBEHHQPo3FMwKmvVEgxOBM3T6M8Oc4s',
+  authDomain: 'hotdog-e27b2.firebaseapp.com',
+  databaseURL: 'https://hotdog-e27b2.firebaseio.com',
+  projectId: 'hotdog-e27b2',
+  storageBucket: 'hotdog-e27b2.appspot.com'
 })
 
 /* eslint-disable no-new */

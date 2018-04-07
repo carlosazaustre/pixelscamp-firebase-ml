@@ -34,7 +34,7 @@ export default {
   methods: {
     initialize () {
       firebase.database()
-        .ref('/upload')
+        .ref('/uploads')
         .on('value', snapshot => {
           let isHotdog = snapshot.val().photo.isHotdog
           this.$emit('upload', { isHotdog })
@@ -42,7 +42,7 @@ export default {
     },
 
     detachListeners () {
-      firebase.database().ref('/upload').off()
+      firebase.database().ref('/uploads').off()
     },
 
     uploadImage (event) {
